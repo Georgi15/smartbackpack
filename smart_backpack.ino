@@ -1,36 +1,66 @@
 #include <DHT.h>
 #include <TinyGPS++.h>
 #include  <SoftwareSerial.h>
-#include "BluetoothSerial.h"
-#if !defined(CONFIG_BT_ENABLED) || !defined(CONFIG_BLUEDROID_ENABLED)
-#error Bluetooth is not enabled! Please run `make menuconfig` to and enable it
-#endif
+#include <BLEDevice.h>
+#include <BLEServer.h>
+#include <BLEUtils.h>
+#include <BLE2902.h>
+
+int txValue;
+BLECharacteristic *pCharacteristics;
+bool device_connected = false;
+String data_string = "";
+String data_buf;
 
 #define dhttype 11
 #define dht_pin 33
 #define TXPin 35
 #define RXPin 34
-#define SERVICE_UUID        "4fafc201-1fb5-459e-8fcc-c5c9c331914b"
-#define CHARACTERISTIC_UUID "beb5483e-36e1-4688-b7f5-ea07361b26a8"
+#define SERVICE_UUID        "6E400001-B5A3-F393-E0A9-E0A9-E50E24DCCA9E"
+#define CHARACTERISTIC_UUID "6E400003-B5A3-F393-E0A9-E0A9-E50E24DCCA9E"
 
 static const uint32_t GPSBaud = 9600;
 TinyGPSPlus gps;
 
 SoftwareSerial ss(RXPin, TXPin);
 
-BluetoothSerial BTS;
-
 
 DHT dht(dht_pin, dhttype);
 
+class MyServerCallbacks: public BLEServerCallbacks
+{
+  void onConnect(BLEServer* pServer)
+  {
+    device_connected = true;
+  };
+  void onDisconnect(BLEServer* pServer)
+  {
+    device_connected = false;
+  }
+};
+
 void setup() {
-  Serial.begin(115200);
+  Serial.begin(9600);
   ss.begin(GPSBaud);
-  Serial.println("Starting BLE work!");
+  BLEServer *pServer = BLEDevice::createServer();
+  pServer->setCallbacks(new MyServerCallbacks());
+
+  BLEService *pService = pServer->createService(SERVICE_UUID);
+
+  pCharacteristics = pService->createCharacteristic(
+                        CHARACTERISTIC_UUID,
+                        BLECharacteristic::PROPERTY_NOTIFY
+                     );
+
+  pCharacteristics->addDescriptor(new BLE2902);
+
+  pService->start();
+
+  pServer->getAdvertising()->start();
+  
+  
   
   dht.begin();
-
-  BTS.begin();
 }
 
 void loop() {
@@ -45,19 +75,16 @@ void loop() {
       //location
       float gps_lat = gps.location.lat();
       float gps_long = gps.location.lng();
-      float gps_location[2] = {gps_lat, gps_long};
 
       //date
-      int gps_year = gps.date.year();
-      int gps_month = gps.date.month();
-      int gps_day = gps.date.day();
-      int gps_date[3] = {gps_day, gps_month, gps_year};
+      float gps_year = gps.date.year();
+      float gps_month = gps.date.month();
+      float gps_day = gps.date.day();
 
       //time
-      int gps_hour = gps.time.hour();
-      int gps_minute = gps.time.minute();
-      int gps_second = gps.time.second();
-      int gps_time[3] = {gps_hour, gps_minute, gps_second};
+      float gps_hour = gps.time.hour();
+      float gps_minute = gps.time.minute();
+      float gps_second = gps.time.second();
 
       //speed
       float gps_speed = gps.speed.kmph();
@@ -66,11 +93,50 @@ void loop() {
       float gps_altitude = gps.altitude.meters();
 
       //number of satelites in use
-      int gps_satelite_count = gps.satellites.value();
+      //float gps_satelite_count = gps.satellites.value();
 
       //course in degrees
       float gps_course = gps.course.deg();
+      
+      if(device_connected)
+      {
+
+        
+        float all_data[13] = {air_h, air_t, gps_lat, gps_long, gps_altitude, gps_course, gps_speed, gps_day, gps_month, gps_year, gps_hour, gps_minute, gps_second};
+        for(int i=0;i<13;i++)
+        {
+          data_string += String(all_data[i]);
+          data_string += "|";
+        }
+
+        pCharacteristics->setValue(data_string);
+
+        pCharacteristics->notify();
+        Serial.println("Sent value: " + String(data_string));
+        delay(500);
+      }
     }
   }
-  
+  while(ss.available() < 0)
+  {
+      if(device_connected)
+      {
+
+        
+        float all_data[2] = {air_h, air_t};
+        for(int i=0;i<2;i++)
+        {
+          data_string += String(all_data[i]);
+          data_string += "|";
+        }
+        
+        pCharacteristics->setValue(data_string);
+
+        pCharacteristics->notify();
+        Serial.println("Sent value: " + String(data_string));
+        delay(500);
+      }
+  }
+      
+
 }
