@@ -1,16 +1,18 @@
 #include <DHT.h>
 #include <TinyGPS++.h>
 #include  <SoftwareSerial.h>
-#include <BLEDevice.h>
-#include <BLEServer.h>
-#include <BLEUtils.h>
-#include <BLE2902.h>
+#include "BluetoothSerial.h"
 
-int txValue;
-BLECharacteristic *pCharacteristics;
+#if !defined(CONFIG_BT_ENABLED) || !defined(CONFIG_BLUEDROID_ENABLED)
+#error Bluetooth is not enabled! Please run `make menuconfig` to and enable it
+#endif
+
+BluetoothSerial SerialBT;
+
 bool device_connected = false;
 String data_string = "";
 String data_buf;
+String incoming_data;
 
 #define dhttype 11
 #define dht_pin 33
@@ -27,39 +29,11 @@ SoftwareSerial ss(RXPin, TXPin);
 
 DHT dht(dht_pin, dhttype);
 
-class MyServerCallbacks: public BLEServerCallbacks
-{
-  void onConnect(BLEServer* pServer)
-  {
-    device_connected = true;
-  };
-  void onDisconnect(BLEServer* pServer)
-  {
-    device_connected = false;
-  }
-};
-
 void setup() {
   Serial.begin(9600);
   ss.begin(GPSBaud);
-  BLEServer *pServer = BLEDevice::createServer();
-  pServer->setCallbacks(new MyServerCallbacks());
-
-  BLEService *pService = pServer->createService(SERVICE_UUID);
-
-  pCharacteristics = pService->createCharacteristic(
-                        CHARACTERISTIC_UUID,
-                        BLECharacteristic::PROPERTY_NOTIFY
-                     );
-
-  pCharacteristics->addDescriptor(new BLE2902);
-
-  pService->start();
-
-  pServer->getAdvertising()->start();
-  
-  
-  
+  SerialBT.begin("ESP32");
+  Serial.println("The device started, now you can pair it with bluetooth!");
   dht.begin();
 }
 
@@ -97,45 +71,48 @@ void loop() {
 
       //course in degrees
       float gps_course = gps.course.deg();
-      
-      if(device_connected)
-      {
 
         
-        float all_data[13] = {air_h, air_t, gps_lat, gps_long, gps_altitude, gps_course, gps_speed, gps_day, gps_month, gps_year, gps_hour, gps_minute, gps_second};
-        for(int i=0;i<13;i++)
-        {
-          data_string += String(all_data[i]);
-          data_string += "|";
-        }
-
-        pCharacteristics->setValue(data_string);
-
-        pCharacteristics->notify();
-        Serial.println("Sent value: " + String(data_string));
-        delay(500);
+      float all_data[13] = {air_h, air_t, gps_lat, gps_long, gps_altitude, gps_course, gps_speed, gps_day, gps_month, gps_year, gps_hour, gps_minute, gps_second};
+      for(int i=0;i<13;i++)
+      {
+        data_string += String(all_data[i]);
+        data_string += "|";
       }
+
+      SerialBT.println(data_string);
+      Serial.println("Sent value: " + String(data_string));
+      
+      delay(500);
     }
   }
   while(ss.available() < 0)
   {
-      if(device_connected)
+        
+      float all_data[2] = {air_h, air_t};
+      for(int i=0;i<2;i++)
       {
-
-        
-        float all_data[2] = {air_h, air_t};
-        for(int i=0;i<2;i++)
-        {
-          data_string += String(all_data[i]);
-          data_string += "|";
-        }
-        
-        pCharacteristics->setValue(data_string);
-
-        pCharacteristics->notify();
-        Serial.println("Sent value: " + String(data_string));
-        delay(500);
+        data_string += String(all_data[i]);
+        data_string += "|";
       }
+
+      SerialBT.println(data_string);
+      Serial.println("Sent value: " + String(data_string));
+      delay(500);
+  }
+
+  if(SerialBT.available())
+  {
+    char recieved_data = SerialBT.read();
+    if(recieved_data != '\n')
+    {
+      incoming_data += String(recieved_data);
+    }
+    else
+    {
+      incoming_data = "";
+    }
+    Serial.write(recieved_data);
   }
       
 
