@@ -38,8 +38,6 @@ public anywheresoftware.b4a.objects.Serial _mybluetooth = null;
 public anywheresoftware.b4a.objects.RuntimePermissions _rp = null;
 public anywheresoftware.b4a.objects.MapFragmentWrapper.GoogleMapWrapper _gmap = null;
 public anywheresoftware.b4a.objects.MapFragmentWrapper _mapfragment1 = null;
-public anywheresoftware.b4a.objects.ActivityWrapper _activate = null;
-public anywheresoftware.b4a.objects.PanelWrapper _hacktues = null;
 public String _data = "";
 public b4a.example.dateutils _dateutils = null;
 public b4a.example.main _main = null;
@@ -55,12 +53,15 @@ if (Debug.shouldDelegate(ba, "activity_create", false))
 	 {return ((String) Debug.delegate(ba, "activity_create", new Object[] {_firsttime}));}
 RDebugUtils.currentLine=786432;
  //BA.debugLineNum = 786432;BA.debugLine="Sub Activity_Create(FirstTime As Boolean)";
-RDebugUtils.currentLine=786434;
- //BA.debugLineNum = 786434;BA.debugLine="Root.LoadLayout(\"MainPage\")";
+RDebugUtils.currentLine=786433;
+ //BA.debugLineNum = 786433;BA.debugLine="Root.LoadLayout(\"MainPage\")";
 __ref._root /*anywheresoftware.b4a.objects.B4XViewWrapper*/ .LoadLayout("MainPage",ba);
-RDebugUtils.currentLine=786435;
- //BA.debugLineNum = 786435;BA.debugLine="MyBluetooth.Initialize(\"MyBluetooth\")";
+RDebugUtils.currentLine=786434;
+ //BA.debugLineNum = 786434;BA.debugLine="MyBluetooth.Initialize(\"MyBluetooth\")";
 __ref._mybluetooth /*anywheresoftware.b4a.objects.Serial*/ .Initialize("MyBluetooth");
+RDebugUtils.currentLine=786435;
+ //BA.debugLineNum = 786435;BA.debugLine="MyBluetooth.Listen";
+__ref._mybluetooth /*anywheresoftware.b4a.objects.Serial*/ .Listen(ba);
 RDebugUtils.currentLine=786436;
  //BA.debugLineNum = 786436;BA.debugLine="End Sub";
 return "";
@@ -90,8 +91,8 @@ if (Debug.shouldDelegate(ba, "button1_click", false))
 RDebugUtils.currentLine=983040;
  //BA.debugLineNum = 983040;BA.debugLine="Private Sub Button1_Click()";
 RDebugUtils.currentLine=983041;
- //BA.debugLineNum = 983041;BA.debugLine="Log(\"data:\" & data)";
-__c.LogImpl("3983041","data:"+__ref._data /*String*/ ,0);
+ //BA.debugLineNum = 983041;BA.debugLine="xui.MsgboxAsync(\"data:\", \"\" &data )";
+__ref._xui /*anywheresoftware.b4a.objects.B4XViewWrapper.XUI*/ .MsgboxAsync(ba,BA.ObjectToCharSequence("data:"),BA.ObjectToCharSequence(""+__ref._data /*String*/ ));
 RDebugUtils.currentLine=983044;
  //BA.debugLineNum = 983044;BA.debugLine="End Sub";
 return "";
@@ -111,8 +112,6 @@ this.__ref = parent;
 }
 b4a.example.b4xmainpage __ref;
 b4a.example.b4xmainpage parent;
-String _permission = "";
-boolean _result = false;
 uk.co.martinpearman.b4a.osmdroid.views.overlays.wrappers.MyOverlayItemWrapper _waypointmarker = null;
 
 @Override
@@ -126,77 +125,36 @@ return;
 
 case 0:
 //C
-this.state = 1;
-RDebugUtils.currentLine=1048578;
- //BA.debugLineNum = 1048578;BA.debugLine="Root.RemoveAllViews";
+this.state = -1;
+RDebugUtils.currentLine=1048577;
+ //BA.debugLineNum = 1048577;BA.debugLine="Root.RemoveAllViews";
 __ref._root /*anywheresoftware.b4a.objects.B4XViewWrapper*/ .RemoveAllViews();
-RDebugUtils.currentLine=1048579;
- //BA.debugLineNum = 1048579;BA.debugLine="Root.LoadLayout(\"MapFragment1\")";
+RDebugUtils.currentLine=1048578;
+ //BA.debugLineNum = 1048578;BA.debugLine="Root.LoadLayout(\"MapFragment1\")";
 __ref._root /*anywheresoftware.b4a.objects.B4XViewWrapper*/ .LoadLayout("MapFragment1",ba);
-RDebugUtils.currentLine=1048580;
- //BA.debugLineNum = 1048580;BA.debugLine="Wait For MapFragment1_Ready";
+RDebugUtils.currentLine=1048579;
+ //BA.debugLineNum = 1048579;BA.debugLine="Wait For MapFragment1_Ready";
 parent.__c.WaitFor("mapfragment1_ready", ba, new anywheresoftware.b4a.shell.DebugResumableSub.DelegatableResumableSub(this, "b4xmainpage", "button2_click"), null);
-this.state = 7;
-return;
-case 7:
-//C
 this.state = 1;
-;
-RDebugUtils.currentLine=1048581;
- //BA.debugLineNum = 1048581;BA.debugLine="gmap = MapFragment1.GetMap";
-__ref._gmap /*anywheresoftware.b4a.objects.MapFragmentWrapper.GoogleMapWrapper*/  = __ref._mapfragment1 /*anywheresoftware.b4a.objects.MapFragmentWrapper*/ .GetMap();
-RDebugUtils.currentLine=1048582;
- //BA.debugLineNum = 1048582;BA.debugLine="rp.CheckAndRequest(rp.PERMISSION_ACCESS_FINE_LOCA";
-__ref._rp /*anywheresoftware.b4a.objects.RuntimePermissions*/ .CheckAndRequest(ba,__ref._rp /*anywheresoftware.b4a.objects.RuntimePermissions*/ .PERMISSION_ACCESS_FINE_LOCATION);
-RDebugUtils.currentLine=1048583;
- //BA.debugLineNum = 1048583;BA.debugLine="Wait For Activity_PermissionResult (Permission As";
-parent.__c.WaitFor("activity_permissionresult", ba, new anywheresoftware.b4a.shell.DebugResumableSub.DelegatableResumableSub(this, "b4xmainpage", "button2_click"), null);
-this.state = 8;
 return;
-case 8:
-//C
-this.state = 1;
-_permission = (String) result[1];
-_result = (Boolean) result[2];
-;
-RDebugUtils.currentLine=1048584;
- //BA.debugLineNum = 1048584;BA.debugLine="If Result Then";
-if (true) break;
-
 case 1:
-//if
-this.state = 6;
-if (_result) { 
-this.state = 3;
-}else {
-this.state = 5;
-}if (true) break;
-
-case 3:
-//C
-this.state = 6;
-RDebugUtils.currentLine=1048585;
- //BA.debugLineNum = 1048585;BA.debugLine="gmap.MyLocationEnabled = True";
-__ref._gmap /*anywheresoftware.b4a.objects.MapFragmentWrapper.GoogleMapWrapper*/ .setMyLocationEnabled(parent.__c.True);
-RDebugUtils.currentLine=1048586;
- //BA.debugLineNum = 1048586;BA.debugLine="Dim WaypointMarker As Marker";
-_waypointmarker = new uk.co.martinpearman.b4a.osmdroid.views.overlays.wrappers.MyOverlayItemWrapper();
- if (true) break;
-
-case 5:
-//C
-this.state = 6;
-RDebugUtils.currentLine=1048589;
- //BA.debugLineNum = 1048589;BA.debugLine="Log(\"No permission!\")";
-parent.__c.LogImpl("31048589","No permission!",0);
- if (true) break;
-
-case 6:
 //C
 this.state = -1;
 ;
-RDebugUtils.currentLine=1048591;
- //BA.debugLineNum = 1048591;BA.debugLine="End Sub";
+RDebugUtils.currentLine=1048580;
+ //BA.debugLineNum = 1048580;BA.debugLine="gmap = MapFragment1.GetMap";
+__ref._gmap /*anywheresoftware.b4a.objects.MapFragmentWrapper.GoogleMapWrapper*/  = __ref._mapfragment1 /*anywheresoftware.b4a.objects.MapFragmentWrapper*/ .GetMap();
+RDebugUtils.currentLine=1048581;
+ //BA.debugLineNum = 1048581;BA.debugLine="rp.CheckAndRequest(rp.PERMISSION_ACCESS_FINE_LOCA";
+__ref._rp /*anywheresoftware.b4a.objects.RuntimePermissions*/ .CheckAndRequest(ba,__ref._rp /*anywheresoftware.b4a.objects.RuntimePermissions*/ .PERMISSION_ACCESS_FINE_LOCATION);
+RDebugUtils.currentLine=1048582;
+ //BA.debugLineNum = 1048582;BA.debugLine="Dim WaypointMarker As Marker";
+_waypointmarker = new uk.co.martinpearman.b4a.osmdroid.views.overlays.wrappers.MyOverlayItemWrapper();
+RDebugUtils.currentLine=1048587;
+ //BA.debugLineNum = 1048587;BA.debugLine="WaypointMarker = gmap.AddMarker2(51.5074,-0.1278,";
+_waypointmarker = (uk.co.martinpearman.b4a.osmdroid.views.overlays.wrappers.MyOverlayItemWrapper) anywheresoftware.b4a.AbsObjectWrapper.ConvertToWrapper(new uk.co.martinpearman.b4a.osmdroid.views.overlays.wrappers.MyOverlayItemWrapper(), (uk.co.martinpearman.b4a.osmdroid.views.overlays.MyOverlayItem)(__ref._gmap /*anywheresoftware.b4a.objects.MapFragmentWrapper.GoogleMapWrapper*/ .AddMarker2(51.5074,-0.1278,"Current Location",(float)(Double.parseDouble(""))).getObject()));
+RDebugUtils.currentLine=1048589;
+ //BA.debugLineNum = 1048589;BA.debugLine="End Sub";
 if (true) break;
 
             }
@@ -228,7 +186,7 @@ if (Debug.shouldDelegate(ba, "button4_click", false))
 RDebugUtils.currentLine=1179648;
  //BA.debugLineNum = 1179648;BA.debugLine="Private Sub Button4_Click()";
 RDebugUtils.currentLine=1179649;
- //BA.debugLineNum = 1179649;BA.debugLine="xui.MsgboxAsync(\"day:\", \"TIME AND DATE\" &componen";
+ //BA.debugLineNum = 1179649;BA.debugLine="xui.MsgboxAsync(\"day:\", \"TIME AND DATE\" &compone";
 __ref._xui /*anywheresoftware.b4a.objects.B4XViewWrapper.XUI*/ .MsgboxAsync(ba,BA.ObjectToCharSequence("day:"),BA.ObjectToCharSequence("TIME AND DATE"+__ref._components /*String[]*/ [(int) (2)]));
 RDebugUtils.currentLine=1179650;
  //BA.debugLineNum = 1179650;BA.debugLine="xui.MsgboxAsync(\"month:\", \"TIME AND DATE\" &compon";
@@ -274,37 +232,10 @@ RDebugUtils.currentLine=589831;
  //BA.debugLineNum = 589831;BA.debugLine="Private MapFragment1 As MapFragment";
 _mapfragment1 = new anywheresoftware.b4a.objects.MapFragmentWrapper();
 RDebugUtils.currentLine=589832;
- //BA.debugLineNum = 589832;BA.debugLine="Private Activate As Activity";
-_activate = new anywheresoftware.b4a.objects.ActivityWrapper();
-RDebugUtils.currentLine=589833;
- //BA.debugLineNum = 589833;BA.debugLine="Private hacktues As Panel";
-_hacktues = new anywheresoftware.b4a.objects.PanelWrapper();
-RDebugUtils.currentLine=589834;
- //BA.debugLineNum = 589834;BA.debugLine="Dim data As String";
+ //BA.debugLineNum = 589832;BA.debugLine="Dim data As String";
 _data = "";
-RDebugUtils.currentLine=589835;
- //BA.debugLineNum = 589835;BA.debugLine="End Sub";
-return "";
-}
-public String  _connecttodevice(b4a.example.b4xmainpage __ref) throws Exception{
-__ref = this;
-RDebugUtils.currentModule="b4xmainpage";
-if (Debug.shouldDelegate(ba, "connecttodevice", false))
-	 {return ((String) Debug.delegate(ba, "connecttodevice", null));}
-String _macaddress = "";
-RDebugUtils.currentLine=851968;
- //BA.debugLineNum = 851968;BA.debugLine="Sub ConnectToDevice";
-RDebugUtils.currentLine=851969;
- //BA.debugLineNum = 851969;BA.debugLine="Dim macAddress As String";
-_macaddress = "";
-RDebugUtils.currentLine=851970;
- //BA.debugLineNum = 851970;BA.debugLine="macAddress = \"E0:5A:1B:5F:08:7C\"";
-_macaddress = "E0:5A:1B:5F:08:7C";
-RDebugUtils.currentLine=851971;
- //BA.debugLineNum = 851971;BA.debugLine="MyBluetooth.Connect(macAddress)";
-__ref._mybluetooth /*anywheresoftware.b4a.objects.Serial*/ .Connect(ba,_macaddress);
-RDebugUtils.currentLine=851972;
- //BA.debugLineNum = 851972;BA.debugLine="End Sub";
+RDebugUtils.currentLine=589833;
+ //BA.debugLineNum = 589833;BA.debugLine="End Sub";
 return "";
 }
 public String  _initialize(b4a.example.b4xmainpage __ref,anywheresoftware.b4a.BA _ba) throws Exception{
@@ -322,24 +253,49 @@ RDebugUtils.currentLine=655362;
  //BA.debugLineNum = 655362;BA.debugLine="End Sub";
 return "";
 }
-public String  _inputstreambluetoothdata(b4a.example.b4xmainpage __ref) throws Exception{
+public String  _mybluetooth_connected(b4a.example.b4xmainpage __ref,boolean _success) throws Exception{
 __ref = this;
 RDebugUtils.currentModule="b4xmainpage";
-if (Debug.shouldDelegate(ba, "inputstreambluetoothdata", false))
-	 {return ((String) Debug.delegate(ba, "inputstreambluetoothdata", null));}
-RDebugUtils.currentLine=39321600;
- //BA.debugLineNum = 39321600;BA.debugLine="Sub InputStreamBluetoothData";
-RDebugUtils.currentLine=39321601;
- //BA.debugLineNum = 39321601;BA.debugLine="Dim data As String";
+if (Debug.shouldDelegate(ba, "mybluetooth_connected", false))
+	 {return ((String) Debug.delegate(ba, "mybluetooth_connected", new Object[] {_success}));}
+RDebugUtils.currentLine=851968;
+ //BA.debugLineNum = 851968;BA.debugLine="Sub MyBluetooth_Connected(Success As Boolean)";
+RDebugUtils.currentLine=851969;
+ //BA.debugLineNum = 851969;BA.debugLine="If Success Then";
+if (_success) { 
+RDebugUtils.currentLine=851970;
+ //BA.debugLineNum = 851970;BA.debugLine="Log(\"Connected\")";
+__c.LogImpl("6851970","Connected",0);
+ }else {
+RDebugUtils.currentLine=851972;
+ //BA.debugLineNum = 851972;BA.debugLine="Log(\"Failed to connect\")";
+__c.LogImpl("6851972","Failed to connect",0);
+ };
+RDebugUtils.currentLine=851974;
+ //BA.debugLineNum = 851974;BA.debugLine="End Sub";
+return "";
+}
+public String  _mybluetooth_dataavailable(b4a.example.b4xmainpage __ref,byte[] _buffer) throws Exception{
+__ref = this;
+RDebugUtils.currentModule="b4xmainpage";
+if (Debug.shouldDelegate(ba, "mybluetooth_dataavailable", false))
+	 {return ((String) Debug.delegate(ba, "mybluetooth_dataavailable", new Object[] {_buffer}));}
+RDebugUtils.currentLine=917504;
+ //BA.debugLineNum = 917504;BA.debugLine="Sub MyBluetooth_DataAvailable (Buffer() As Byte)";
+RDebugUtils.currentLine=917505;
+ //BA.debugLineNum = 917505;BA.debugLine="Dim data As String";
 _data = "";
-RDebugUtils.currentLine=39321602;
- //BA.debugLineNum = 39321602;BA.debugLine="data = MyBluetooth.InputStream";
-__ref._data /*String*/  = BA.ObjectToString(__ref._mybluetooth /*anywheresoftware.b4a.objects.Serial*/ .getInputStream());
-RDebugUtils.currentLine=39321603;
- //BA.debugLineNum = 39321603;BA.debugLine="Log(\"Received data: \" & data)";
-__c.LogImpl("339321603","Received data: "+__ref._data /*String*/ ,0);
-RDebugUtils.currentLine=39321605;
- //BA.debugLineNum = 39321605;BA.debugLine="End Sub";
+RDebugUtils.currentLine=917506;
+ //BA.debugLineNum = 917506;BA.debugLine="data = BytesToString(Buffer, 52 , Buffer.Length,";
+__ref._data /*String*/  = __c.BytesToString(_buffer,(int) (52),_buffer.length,"UTF8");
+RDebugUtils.currentLine=917507;
+ //BA.debugLineNum = 917507;BA.debugLine="components= Regex.Split(\"\\|\",\"\" & data)";
+__ref._components /*String[]*/  = __c.Regex.Split("\\|",""+__ref._data /*String*/ );
+RDebugUtils.currentLine=917508;
+ //BA.debugLineNum = 917508;BA.debugLine="Log(\"Received data: \" & data)";
+__c.LogImpl("6917508","Received data: "+__ref._data /*String*/ ,0);
+RDebugUtils.currentLine=917509;
+ //BA.debugLineNum = 917509;BA.debugLine="End Sub";
 return "";
 }
 }

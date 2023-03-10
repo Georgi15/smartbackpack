@@ -296,43 +296,43 @@ b4xpagesmanager,updatestackstring,0,0,647,659
 
 
 b4xset,getsize,b4xset,aslist,b4xorderedmap,getsize,b4xorderedmap,getkeys
-b4xmainpage,activity_create,1,0,32,36
+b4xmainpage,activity_create,1,0,30,34
 
 
 
-b4xmainpage,b4xpage_created,1,0,26,29
+b4xmainpage,b4xpage_created,1,0,24,27
 
 
 
-b4xmainpage,button1_click,0,0,50,54
+b4xmainpage,button1_click,0,1,48,52
 
 
 
-b4xmainpage,button2_click,1,0,55,70
+b4xmainpage,button2_click,1,1,53,66
 
 
 
-b4xmainpage,button3_click,1,0,71,74
+b4xmainpage,button3_click,1,0,67,70
 
 
 
-b4xmainpage,button4_click,0,0,75,81
+b4xmainpage,button4_click,0,1,71,77
 
 
 
-b4xmainpage,class_globals,0,0,7,18
+b4xmainpage,class_globals,0,0,7,16
 
 
 
-b4xmainpage,connecttodevice,0,0,38,42
-
-
-
-b4xmainpage,initialize,0,0,21,23
+b4xmainpage,initialize,0,0,19,21
 b4xpages,mpm
 
 b4xpages,getmanager
-b4xmainpage,inputstreambluetoothdata,0,1,44,49
+b4xmainpage,mybluetooth_connected,0,0,35,41
+
+
+
+b4xmainpage,mybluetooth_dataavailable,0,0,42,47
 
 
 

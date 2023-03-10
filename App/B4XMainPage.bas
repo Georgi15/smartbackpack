@@ -18,8 +18,6 @@ Sub Class_Globals
 	Private rp As RuntimePermissions
 	Private gmap As GoogleMap
 	Private MapFragment1 As MapFragment
-	Private Activate As Activity
-	Private hacktues As Panel
 	Dim data As String
 End Sub
 
@@ -36,50 +34,48 @@ End Sub
 'You can see the list of page related events in the B4XPagesManager object. The event name is B4XPage.
 
 Sub Activity_Create(FirstTime As Boolean)
-	'hacktues = Activate.GetPanel("hacktues")
 	Root.LoadLayout("MainPage")
 	MyBluetooth.Initialize("MyBluetooth")
+	MyBluetooth.Listen 
 End Sub
-
-Sub ConnectToDevice
-    Dim macAddress As String
-	macAddress = "E0:5A:1B:5F:08:7C"
-    MyBluetooth.Connect(macAddress)
+Sub MyBluetooth_Connected(Success As Boolean)
+	If Success Then
+		Log("Connected")
+	Else
+		Log("Failed to connect")
+	End If
 End Sub
-
-Sub InputStreamBluetoothData
-    Dim data As String
-   	data = MyBluetooth.InputStream
-   	Log("Received data: " & data)
-	'components(0) = Regex.Split("\|","" & data)
+Sub MyBluetooth_DataAvailable (Buffer() As Byte)
+	Dim data As String
+	data = BytesToString(Buffer, 52 , Buffer.Length, "UTF8")
+	components= Regex.Split("\|","" & data)
+	Log("Received data: " & data)
 End Sub
 Private Sub Button1_Click()
-	Log("data:" & data)
-	'Log("Air Humidity :" & components(0))
-	'Log("tempreture :" & components(1))
+	xui.MsgboxAsync("data:", "" &data )
+'	Log("Air Humidity :" & components(0))
+'	Log("tempreture :" & components(1))
 End Sub
 Private Sub Button2_Click()
-	'hacktues.Visible= False
     Root.RemoveAllViews
 	Root.LoadLayout("MapFragment1")
 	Wait For MapFragment1_Ready
 	gmap = MapFragment1.GetMap
 	rp.CheckAndRequest(rp.PERMISSION_ACCESS_FINE_LOCATION)
-	Wait For Activity_PermissionResult (Permission As String, Result As Boolean)
-	If Result Then
-		gmap.MyLocationEnabled = True
 		Dim WaypointMarker As Marker
-		'WaypointMarker = gmap.AddMarker2(LastLocation.components(7), LastLocation.components(8), "Current location")
-	Else
-		Log("No permission!")
-	End If
+		'Dim Latitude As String
+		'Dim Longtitude As String
+		'Latitude = components(7)
+		'Longtitude = components(8)
+	WaypointMarker = gmap.AddMarker2(51.5074,-0.1278,"Current Location", "")
+        'WaypointMarker = gmap.AddMarker2(gmap.MyLocation.Latitude,gmap.MyLocation.Longitude,"Current Location", "")
 End Sub
 Private Sub Button3_Click
 	Root.RemoveAllViews
 	Root.LoadLayout("hacktues")
 End Sub
 Private Sub Button4_Click()
-	xui.MsgboxAsync("day:", "TIME AND DATE" &components(2) )
+		xui.MsgboxAsync("day:", "TIME AND DATE" &components(2) )
 	xui.MsgboxAsync("month:", "TIME AND DATE" &components(3) )
 	xui.MsgboxAsync("year:", "TIME AND DATE" &components(4) )
 	xui.MsgboxAsync("hour:", "TIME AND DATE" &components(5) )
