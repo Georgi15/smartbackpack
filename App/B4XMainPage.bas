@@ -17,9 +17,9 @@ Sub Class_Globals
 	Dim truepass As String
 	Dim components() As String
 	Dim MyBluetooth As Bluetooth
-	Dim Activity As Activity
-	'Dim Input As B4XView
-	Dim day As String
+	Private rp As RuntimePermissions
+	Private gmap As GoogleMap
+	Private MapFragment1 As MapFragment
 End Sub
 
 
@@ -79,7 +79,15 @@ Private Sub Button2_Click()
 	Root.LoadLayout("MapFragment1")
 End Sub
 Private Sub MapFragment1_Click
-	
+	Wait For MapFragment1_Ready
+	gmap = MapFragment1.GetMap
+	rp.CheckAndRequest(rp.PERMISSION_ACCESS_FINE_LOCATION)
+	Wait For Activity_PermissionResult (Permission As String, Result As Boolean)
+	If Result Then
+		gmap.MyLocationEnabled = True
+	Else
+		Log("No permission!")
+	End If
 End Sub
 'Sub SetApplicationText
 	'If day = 1 Then
@@ -89,9 +97,12 @@ End Sub
 	'End If
 'End Sub
 Private Sub Button3_Click()
-	xui.MsgboxAsync("Received data:", "Compas" &components(2) )
+	xui.MsgboxAsync("Received data:", "Compas" &components(3) )
 End Sub
 Private Sub Button4_Click()
-	xui.MsgboxAsync("Received data:", "TIME AND DATE" &components(3) )
+	xui.MsgboxAsync("Received data:", "TIME AND DATE" &components(4) )
 End Sub
 
+'MyMapView.Initialize("MyMapView")
+'	Activity.AddView(MyMapView, components(1), components(2), 100%x, 100%y)
+'	MyMapView.SetApiKey("AIzaSyCcxrTpXN577ZKtKAwoBthrmiPXdLv1fDI")
