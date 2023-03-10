@@ -7,6 +7,6 @@ ModuleBreakpoints2=
 ModuleClosedNodes0=2,6
 ModuleClosedNodes1=1
 ModuleClosedNodes2=1
-NavigationStack=B4XMainPage,Initialize,22,0,B4XMainPage,ReadBluetoothData,42,1,Visual Designer,MapFragment1.bal,-100,6,B4XMainPage,Button1_Click,47,0,Visual Designer,hacktues.bal,-100,6,B4XMainPage,B4XPage_Created,25,0,B4XMainPage,Class_Globals,12,6,B4XMainPage,Button2_Click,50,6,B4XMainPage,Activity_Create,30,2,B4XMainPage,ConnectToDevice,39,0
+NavigationStack=B4XMainPage,B4XPage_Created,26,0,B4XMainPage,Button3_Click,68,0,Visual Designer,hacktues.bal,-100,6,B4XMainPage,Button2_Click,54,6,B4XMainPage,Button4_Click,79,1,B4XMainPage,Activity_Create,30,2,B4XMainPage,ConnectToDevice,36,0,B4XMainPage,Button1_Click,52,6,B4XMainPage,InputStreamBluetoothData,43,0,B4XMainPage,Class_Globals,14,6
 SelectedBuild=0
 VisibleModules=1

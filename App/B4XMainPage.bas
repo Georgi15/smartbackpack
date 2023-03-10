@@ -20,6 +20,7 @@ Sub Class_Globals
 	Private MapFragment1 As MapFragment
 	Private Activate As Activity
 	Private hacktues As Panel
+	Dim data As String
 End Sub
 
 
@@ -35,7 +36,7 @@ End Sub
 'You can see the list of page related events in the B4XPagesManager object. The event name is B4XPage.
 
 Sub Activity_Create(FirstTime As Boolean)
-	hacktues = Activate.GetPanel("hacktues")
+	'hacktues = Activate.GetPanel("hacktues")
 	Root.LoadLayout("MainPage")
 	MyBluetooth.Initialize("MyBluetooth")
 End Sub
@@ -46,18 +47,20 @@ Sub ConnectToDevice
     MyBluetooth.Connect(macAddress)
 End Sub
 
-Sub ReadBluetoothData
+Sub InputStreamBluetoothData
     Dim data As String
    	data = MyBluetooth.InputStream
    	Log("Received data: " & data)
-	components = Regex.Split(";","Received data" & data)
+	'components(0) = Regex.Split("\|","" & data)
 End Sub
 Private Sub Button1_Click()
-	xui.MsgboxAsync("Received data:", "Weather" &components(0) )
+	Log("data:" & data)
+	'Log("Air Humidity :" & components(0))
+	'Log("tempreture :" & components(1))
 End Sub
 Private Sub Button2_Click()
-	hacktues.Visible= False
-'	Activate.RemoveViewAt("hacktues")
+	'hacktues.Visible= False
+    Root.RemoveAllViews
 	Root.LoadLayout("MapFragment1")
 	Wait For MapFragment1_Ready
 	gmap = MapFragment1.GetMap
@@ -65,24 +68,20 @@ Private Sub Button2_Click()
 	Wait For Activity_PermissionResult (Permission As String, Result As Boolean)
 	If Result Then
 		gmap.MyLocationEnabled = True
+		Dim WaypointMarker As Marker
+		'WaypointMarker = gmap.AddMarker2(LastLocation.components(7), LastLocation.components(8), "Current location")
 	Else
 		Log("No permission!")
 	End If
 End Sub
-'Private Sub MapFragment1_Click
-	'Wait For MapFragment1_Ready
-	'gmap = MapFragment1.GetMap
-	'rp.CheckAndRequest(rp.PERMISSION_ACCESS_FINE_LOCATION)
-	'Wait For Activity_PermissionResult (Permission As String, Result As Boolean)
-	'If Result Then
-'		gmap.MyLocationEnabled = True
-	'Else
-	'	Log("No permission!")
-'	End If
-'End Sub
-Private Sub Button3_Click()
-	xui.MsgboxAsync("Received data:", "Compas" &components(3) )
+Private Sub Button3_Click
+	Root.RemoveAllViews
+	Root.LoadLayout("hacktues")
 End Sub
 Private Sub Button4_Click()
-	xui.MsgboxAsync("Received data:", "TIME AND DATE" &components(4) )
+	xui.MsgboxAsync("day:", "TIME AND DATE" &components(2) )
+	xui.MsgboxAsync("month:", "TIME AND DATE" &components(3) )
+	xui.MsgboxAsync("year:", "TIME AND DATE" &components(4) )
+	xui.MsgboxAsync("hour:", "TIME AND DATE" &components(5) )
+	xui.MsgboxAsync("minute:", "TIME AND DATE" &components(6) )
 End Sub

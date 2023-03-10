@@ -1,0 +1,345 @@
+package b4a.example;
+
+
+import anywheresoftware.b4a.BA;
+import anywheresoftware.b4a.B4AClass;
+import anywheresoftware.b4a.BALayout;
+import anywheresoftware.b4a.debug.*;
+
+public class b4xmainpage extends B4AClass.ImplB4AClass implements BA.SubDelegator{
+    private static java.util.HashMap<String, java.lang.reflect.Method> htSubs;
+    private void innerInitialize(BA _ba) throws Exception {
+        if (ba == null) {
+            ba = new anywheresoftware.b4a.ShellBA(_ba, this, htSubs, "b4a.example.b4xmainpage");
+            if (htSubs == null) {
+                ba.loadHtSubs(this.getClass());
+                htSubs = ba.htSubs;
+            }
+            
+        }
+        if (BA.isShellModeRuntimeCheck(ba)) 
+			   this.getClass().getMethod("_class_globals", b4a.example.b4xmainpage.class).invoke(this, new Object[] {null});
+        else
+            ba.raiseEvent2(null, true, "class_globals", false);
+    }
+
+ 
+    public void  innerInitializeHelper(anywheresoftware.b4a.BA _ba) throws Exception{
+        innerInitialize(_ba);
+    }
+    public Object callSub(String sub, Object sender, Object[] args) throws Exception {
+        return BA.SubDelegator.SubNotFound;
+    }
+public anywheresoftware.b4a.keywords.Common __c = null;
+public anywheresoftware.b4a.objects.B4XViewWrapper _root = null;
+public anywheresoftware.b4a.objects.B4XViewWrapper.XUI _xui = null;
+public String[] _components = null;
+public anywheresoftware.b4a.objects.Serial _mybluetooth = null;
+public anywheresoftware.b4a.objects.RuntimePermissions _rp = null;
+public anywheresoftware.b4a.objects.MapFragmentWrapper.GoogleMapWrapper _gmap = null;
+public anywheresoftware.b4a.objects.MapFragmentWrapper _mapfragment1 = null;
+public anywheresoftware.b4a.objects.ActivityWrapper _activate = null;
+public anywheresoftware.b4a.objects.PanelWrapper _hacktues = null;
+public String _data = "";
+public b4a.example.dateutils _dateutils = null;
+public b4a.example.main _main = null;
+public b4a.example.starter _starter = null;
+public b4a.example.b4xpages _b4xpages = null;
+public b4a.example.b4xcollections _b4xcollections = null;
+public b4a.example.xuiviewsutils _xuiviewsutils = null;
+public b4a.example.httputils2service _httputils2service = null;
+public String  _activity_create(b4a.example.b4xmainpage __ref,boolean _firsttime) throws Exception{
+__ref = this;
+RDebugUtils.currentModule="b4xmainpage";
+if (Debug.shouldDelegate(ba, "activity_create", false))
+	 {return ((String) Debug.delegate(ba, "activity_create", new Object[] {_firsttime}));}
+RDebugUtils.currentLine=786432;
+ //BA.debugLineNum = 786432;BA.debugLine="Sub Activity_Create(FirstTime As Boolean)";
+RDebugUtils.currentLine=786434;
+ //BA.debugLineNum = 786434;BA.debugLine="Root.LoadLayout(\"MainPage\")";
+__ref._root /*anywheresoftware.b4a.objects.B4XViewWrapper*/ .LoadLayout("MainPage",ba);
+RDebugUtils.currentLine=786435;
+ //BA.debugLineNum = 786435;BA.debugLine="MyBluetooth.Initialize(\"MyBluetooth\")";
+__ref._mybluetooth /*anywheresoftware.b4a.objects.Serial*/ .Initialize("MyBluetooth");
+RDebugUtils.currentLine=786436;
+ //BA.debugLineNum = 786436;BA.debugLine="End Sub";
+return "";
+}
+public String  _b4xpage_created(b4a.example.b4xmainpage __ref,anywheresoftware.b4a.objects.B4XViewWrapper _root1) throws Exception{
+__ref = this;
+RDebugUtils.currentModule="b4xmainpage";
+if (Debug.shouldDelegate(ba, "b4xpage_created", false))
+	 {return ((String) Debug.delegate(ba, "b4xpage_created", new Object[] {_root1}));}
+RDebugUtils.currentLine=720896;
+ //BA.debugLineNum = 720896;BA.debugLine="Private Sub B4XPage_Created (Root1 As B4XView)";
+RDebugUtils.currentLine=720897;
+ //BA.debugLineNum = 720897;BA.debugLine="Root = Root1";
+__ref._root /*anywheresoftware.b4a.objects.B4XViewWrapper*/  = _root1;
+RDebugUtils.currentLine=720898;
+ //BA.debugLineNum = 720898;BA.debugLine="Root.LoadLayout(\"hacktues\")";
+__ref._root /*anywheresoftware.b4a.objects.B4XViewWrapper*/ .LoadLayout("hacktues",ba);
+RDebugUtils.currentLine=720899;
+ //BA.debugLineNum = 720899;BA.debugLine="End Sub";
+return "";
+}
+public String  _button1_click(b4a.example.b4xmainpage __ref) throws Exception{
+__ref = this;
+RDebugUtils.currentModule="b4xmainpage";
+if (Debug.shouldDelegate(ba, "button1_click", false))
+	 {return ((String) Debug.delegate(ba, "button1_click", null));}
+RDebugUtils.currentLine=983040;
+ //BA.debugLineNum = 983040;BA.debugLine="Private Sub Button1_Click()";
+RDebugUtils.currentLine=983041;
+ //BA.debugLineNum = 983041;BA.debugLine="Log(\"data:\" & data)";
+__c.LogImpl("3983041","data:"+__ref._data /*String*/ ,0);
+RDebugUtils.currentLine=983044;
+ //BA.debugLineNum = 983044;BA.debugLine="End Sub";
+return "";
+}
+public void  _button2_click(b4a.example.b4xmainpage __ref) throws Exception{
+RDebugUtils.currentModule="b4xmainpage";
+if (Debug.shouldDelegate(ba, "button2_click", false))
+	 {Debug.delegate(ba, "button2_click", null); return;}
+ResumableSub_Button2_Click rsub = new ResumableSub_Button2_Click(this,__ref);
+rsub.resume(ba, null);
+}
+public static class ResumableSub_Button2_Click extends BA.ResumableSub {
+public ResumableSub_Button2_Click(b4a.example.b4xmainpage parent,b4a.example.b4xmainpage __ref) {
+this.parent = parent;
+this.__ref = __ref;
+this.__ref = parent;
+}
+b4a.example.b4xmainpage __ref;
+b4a.example.b4xmainpage parent;
+String _permission = "";
+boolean _result = false;
+uk.co.martinpearman.b4a.osmdroid.views.overlays.wrappers.MyOverlayItemWrapper _waypointmarker = null;
+
+@Override
+public void resume(BA ba, Object[] result) throws Exception{
+RDebugUtils.currentModule="b4xmainpage";
+
+    while (true) {
+        switch (state) {
+            case -1:
+return;
+
+case 0:
+//C
+this.state = 1;
+RDebugUtils.currentLine=1048578;
+ //BA.debugLineNum = 1048578;BA.debugLine="Root.RemoveAllViews";
+__ref._root /*anywheresoftware.b4a.objects.B4XViewWrapper*/ .RemoveAllViews();
+RDebugUtils.currentLine=1048579;
+ //BA.debugLineNum = 1048579;BA.debugLine="Root.LoadLayout(\"MapFragment1\")";
+__ref._root /*anywheresoftware.b4a.objects.B4XViewWrapper*/ .LoadLayout("MapFragment1",ba);
+RDebugUtils.currentLine=1048580;
+ //BA.debugLineNum = 1048580;BA.debugLine="Wait For MapFragment1_Ready";
+parent.__c.WaitFor("mapfragment1_ready", ba, new anywheresoftware.b4a.shell.DebugResumableSub.DelegatableResumableSub(this, "b4xmainpage", "button2_click"), null);
+this.state = 7;
+return;
+case 7:
+//C
+this.state = 1;
+;
+RDebugUtils.currentLine=1048581;
+ //BA.debugLineNum = 1048581;BA.debugLine="gmap = MapFragment1.GetMap";
+__ref._gmap /*anywheresoftware.b4a.objects.MapFragmentWrapper.GoogleMapWrapper*/  = __ref._mapfragment1 /*anywheresoftware.b4a.objects.MapFragmentWrapper*/ .GetMap();
+RDebugUtils.currentLine=1048582;
+ //BA.debugLineNum = 1048582;BA.debugLine="rp.CheckAndRequest(rp.PERMISSION_ACCESS_FINE_LOCA";
+__ref._rp /*anywheresoftware.b4a.objects.RuntimePermissions*/ .CheckAndRequest(ba,__ref._rp /*anywheresoftware.b4a.objects.RuntimePermissions*/ .PERMISSION_ACCESS_FINE_LOCATION);
+RDebugUtils.currentLine=1048583;
+ //BA.debugLineNum = 1048583;BA.debugLine="Wait For Activity_PermissionResult (Permission As";
+parent.__c.WaitFor("activity_permissionresult", ba, new anywheresoftware.b4a.shell.DebugResumableSub.DelegatableResumableSub(this, "b4xmainpage", "button2_click"), null);
+this.state = 8;
+return;
+case 8:
+//C
+this.state = 1;
+_permission = (String) result[1];
+_result = (Boolean) result[2];
+;
+RDebugUtils.currentLine=1048584;
+ //BA.debugLineNum = 1048584;BA.debugLine="If Result Then";
+if (true) break;
+
+case 1:
+//if
+this.state = 6;
+if (_result) { 
+this.state = 3;
+}else {
+this.state = 5;
+}if (true) break;
+
+case 3:
+//C
+this.state = 6;
+RDebugUtils.currentLine=1048585;
+ //BA.debugLineNum = 1048585;BA.debugLine="gmap.MyLocationEnabled = True";
+__ref._gmap /*anywheresoftware.b4a.objects.MapFragmentWrapper.GoogleMapWrapper*/ .setMyLocationEnabled(parent.__c.True);
+RDebugUtils.currentLine=1048586;
+ //BA.debugLineNum = 1048586;BA.debugLine="Dim WaypointMarker As Marker";
+_waypointmarker = new uk.co.martinpearman.b4a.osmdroid.views.overlays.wrappers.MyOverlayItemWrapper();
+ if (true) break;
+
+case 5:
+//C
+this.state = 6;
+RDebugUtils.currentLine=1048589;
+ //BA.debugLineNum = 1048589;BA.debugLine="Log(\"No permission!\")";
+parent.__c.LogImpl("31048589","No permission!",0);
+ if (true) break;
+
+case 6:
+//C
+this.state = -1;
+;
+RDebugUtils.currentLine=1048591;
+ //BA.debugLineNum = 1048591;BA.debugLine="End Sub";
+if (true) break;
+
+            }
+        }
+    }
+}
+public String  _button3_click(b4a.example.b4xmainpage __ref) throws Exception{
+__ref = this;
+RDebugUtils.currentModule="b4xmainpage";
+if (Debug.shouldDelegate(ba, "button3_click", false))
+	 {return ((String) Debug.delegate(ba, "button3_click", null));}
+RDebugUtils.currentLine=1114112;
+ //BA.debugLineNum = 1114112;BA.debugLine="Private Sub Button3_Click";
+RDebugUtils.currentLine=1114113;
+ //BA.debugLineNum = 1114113;BA.debugLine="Root.RemoveAllViews";
+__ref._root /*anywheresoftware.b4a.objects.B4XViewWrapper*/ .RemoveAllViews();
+RDebugUtils.currentLine=1114114;
+ //BA.debugLineNum = 1114114;BA.debugLine="Root.LoadLayout(\"hacktues\")";
+__ref._root /*anywheresoftware.b4a.objects.B4XViewWrapper*/ .LoadLayout("hacktues",ba);
+RDebugUtils.currentLine=1114115;
+ //BA.debugLineNum = 1114115;BA.debugLine="End Sub";
+return "";
+}
+public String  _button4_click(b4a.example.b4xmainpage __ref) throws Exception{
+__ref = this;
+RDebugUtils.currentModule="b4xmainpage";
+if (Debug.shouldDelegate(ba, "button4_click", false))
+	 {return ((String) Debug.delegate(ba, "button4_click", null));}
+RDebugUtils.currentLine=1179648;
+ //BA.debugLineNum = 1179648;BA.debugLine="Private Sub Button4_Click()";
+RDebugUtils.currentLine=1179649;
+ //BA.debugLineNum = 1179649;BA.debugLine="xui.MsgboxAsync(\"day:\", \"TIME AND DATE\" &componen";
+__ref._xui /*anywheresoftware.b4a.objects.B4XViewWrapper.XUI*/ .MsgboxAsync(ba,BA.ObjectToCharSequence("day:"),BA.ObjectToCharSequence("TIME AND DATE"+__ref._components /*String[]*/ [(int) (2)]));
+RDebugUtils.currentLine=1179650;
+ //BA.debugLineNum = 1179650;BA.debugLine="xui.MsgboxAsync(\"month:\", \"TIME AND DATE\" &compon";
+__ref._xui /*anywheresoftware.b4a.objects.B4XViewWrapper.XUI*/ .MsgboxAsync(ba,BA.ObjectToCharSequence("month:"),BA.ObjectToCharSequence("TIME AND DATE"+__ref._components /*String[]*/ [(int) (3)]));
+RDebugUtils.currentLine=1179651;
+ //BA.debugLineNum = 1179651;BA.debugLine="xui.MsgboxAsync(\"year:\", \"TIME AND DATE\" &compone";
+__ref._xui /*anywheresoftware.b4a.objects.B4XViewWrapper.XUI*/ .MsgboxAsync(ba,BA.ObjectToCharSequence("year:"),BA.ObjectToCharSequence("TIME AND DATE"+__ref._components /*String[]*/ [(int) (4)]));
+RDebugUtils.currentLine=1179652;
+ //BA.debugLineNum = 1179652;BA.debugLine="xui.MsgboxAsync(\"hour:\", \"TIME AND DATE\" &compone";
+__ref._xui /*anywheresoftware.b4a.objects.B4XViewWrapper.XUI*/ .MsgboxAsync(ba,BA.ObjectToCharSequence("hour:"),BA.ObjectToCharSequence("TIME AND DATE"+__ref._components /*String[]*/ [(int) (5)]));
+RDebugUtils.currentLine=1179653;
+ //BA.debugLineNum = 1179653;BA.debugLine="xui.MsgboxAsync(\"minute:\", \"TIME AND DATE\" &compo";
+__ref._xui /*anywheresoftware.b4a.objects.B4XViewWrapper.XUI*/ .MsgboxAsync(ba,BA.ObjectToCharSequence("minute:"),BA.ObjectToCharSequence("TIME AND DATE"+__ref._components /*String[]*/ [(int) (6)]));
+RDebugUtils.currentLine=1179654;
+ //BA.debugLineNum = 1179654;BA.debugLine="End Sub";
+return "";
+}
+public String  _class_globals(b4a.example.b4xmainpage __ref) throws Exception{
+__ref = this;
+RDebugUtils.currentModule="b4xmainpage";
+RDebugUtils.currentLine=589824;
+ //BA.debugLineNum = 589824;BA.debugLine="Sub Class_Globals";
+RDebugUtils.currentLine=589825;
+ //BA.debugLineNum = 589825;BA.debugLine="Private Root As B4XView";
+_root = new anywheresoftware.b4a.objects.B4XViewWrapper();
+RDebugUtils.currentLine=589826;
+ //BA.debugLineNum = 589826;BA.debugLine="Private xui As XUI";
+_xui = new anywheresoftware.b4a.objects.B4XViewWrapper.XUI();
+RDebugUtils.currentLine=589827;
+ //BA.debugLineNum = 589827;BA.debugLine="Dim components() As String";
+_components = new String[(int) (0)];
+java.util.Arrays.fill(_components,"");
+RDebugUtils.currentLine=589828;
+ //BA.debugLineNum = 589828;BA.debugLine="Dim MyBluetooth As Serial";
+_mybluetooth = new anywheresoftware.b4a.objects.Serial();
+RDebugUtils.currentLine=589829;
+ //BA.debugLineNum = 589829;BA.debugLine="Private rp As RuntimePermissions";
+_rp = new anywheresoftware.b4a.objects.RuntimePermissions();
+RDebugUtils.currentLine=589830;
+ //BA.debugLineNum = 589830;BA.debugLine="Private gmap As GoogleMap";
+_gmap = new anywheresoftware.b4a.objects.MapFragmentWrapper.GoogleMapWrapper();
+RDebugUtils.currentLine=589831;
+ //BA.debugLineNum = 589831;BA.debugLine="Private MapFragment1 As MapFragment";
+_mapfragment1 = new anywheresoftware.b4a.objects.MapFragmentWrapper();
+RDebugUtils.currentLine=589832;
+ //BA.debugLineNum = 589832;BA.debugLine="Private Activate As Activity";
+_activate = new anywheresoftware.b4a.objects.ActivityWrapper();
+RDebugUtils.currentLine=589833;
+ //BA.debugLineNum = 589833;BA.debugLine="Private hacktues As Panel";
+_hacktues = new anywheresoftware.b4a.objects.PanelWrapper();
+RDebugUtils.currentLine=589834;
+ //BA.debugLineNum = 589834;BA.debugLine="Dim data As String";
+_data = "";
+RDebugUtils.currentLine=589835;
+ //BA.debugLineNum = 589835;BA.debugLine="End Sub";
+return "";
+}
+public String  _connecttodevice(b4a.example.b4xmainpage __ref) throws Exception{
+__ref = this;
+RDebugUtils.currentModule="b4xmainpage";
+if (Debug.shouldDelegate(ba, "connecttodevice", false))
+	 {return ((String) Debug.delegate(ba, "connecttodevice", null));}
+String _macaddress = "";
+RDebugUtils.currentLine=851968;
+ //BA.debugLineNum = 851968;BA.debugLine="Sub ConnectToDevice";
+RDebugUtils.currentLine=851969;
+ //BA.debugLineNum = 851969;BA.debugLine="Dim macAddress As String";
+_macaddress = "";
+RDebugUtils.currentLine=851970;
+ //BA.debugLineNum = 851970;BA.debugLine="macAddress = \"E0:5A:1B:5F:08:7C\"";
+_macaddress = "E0:5A:1B:5F:08:7C";
+RDebugUtils.currentLine=851971;
+ //BA.debugLineNum = 851971;BA.debugLine="MyBluetooth.Connect(macAddress)";
+__ref._mybluetooth /*anywheresoftware.b4a.objects.Serial*/ .Connect(ba,_macaddress);
+RDebugUtils.currentLine=851972;
+ //BA.debugLineNum = 851972;BA.debugLine="End Sub";
+return "";
+}
+public String  _initialize(b4a.example.b4xmainpage __ref,anywheresoftware.b4a.BA _ba) throws Exception{
+__ref = this;
+innerInitialize(_ba);
+RDebugUtils.currentModule="b4xmainpage";
+if (Debug.shouldDelegate(ba, "initialize", false))
+	 {return ((String) Debug.delegate(ba, "initialize", new Object[] {_ba}));}
+RDebugUtils.currentLine=655360;
+ //BA.debugLineNum = 655360;BA.debugLine="Public Sub Initialize";
+RDebugUtils.currentLine=655361;
+ //BA.debugLineNum = 655361;BA.debugLine="B4XPages.GetManager.LogEvents = True";
+_b4xpages._getmanager /*b4a.example.b4xpagesmanager*/ (ba)._logevents /*boolean*/  = __c.True;
+RDebugUtils.currentLine=655362;
+ //BA.debugLineNum = 655362;BA.debugLine="End Sub";
+return "";
+}
+public String  _inputstreambluetoothdata(b4a.example.b4xmainpage __ref) throws Exception{
+__ref = this;
+RDebugUtils.currentModule="b4xmainpage";
+if (Debug.shouldDelegate(ba, "inputstreambluetoothdata", false))
+	 {return ((String) Debug.delegate(ba, "inputstreambluetoothdata", null));}
+RDebugUtils.currentLine=39321600;
+ //BA.debugLineNum = 39321600;BA.debugLine="Sub InputStreamBluetoothData";
+RDebugUtils.currentLine=39321601;
+ //BA.debugLineNum = 39321601;BA.debugLine="Dim data As String";
+_data = "";
+RDebugUtils.currentLine=39321602;
+ //BA.debugLineNum = 39321602;BA.debugLine="data = MyBluetooth.InputStream";
+__ref._data /*String*/  = BA.ObjectToString(__ref._mybluetooth /*anywheresoftware.b4a.objects.Serial*/ .getInputStream());
+RDebugUtils.currentLine=39321603;
+ //BA.debugLineNum = 39321603;BA.debugLine="Log(\"Received data: \" & data)";
+__c.LogImpl("339321603","Received data: "+__ref._data /*String*/ ,0);
+RDebugUtils.currentLine=39321605;
+ //BA.debugLineNum = 39321605;BA.debugLine="End Sub";
+return "";
+}
+}
