@@ -19,6 +19,7 @@ Sub Class_Globals
 	Dim MyBluetooth As Bluetooth
 	Private rp As RuntimePermissions
 	Private gmap As GoogleMap
+	Dim Activity As Activity
 	Private MapFragment1 As MapFragment
 End Sub
 
@@ -62,13 +63,13 @@ End Sub
 
 Sub ConnectToDevice
     Dim macAddress As String
-    macAddress = ""
+	macAddress = "E0:5A:1B:5F:08:7C"
     MyBluetooth.Connect(macAddress)
 End Sub
 
 Sub ReadBluetoothData
     Dim data As String
-'   	data = MyBluetooth.Read
+   	data = MyBluetooth.Read(100)
    	Log("Received data: " & data)
 	components = Regex.Split(";","Received data" & data)
 End Sub
@@ -76,6 +77,7 @@ Private Sub Button1_Click()
 	xui.MsgboxAsync("Received data:", "Weather" &components(0) )
 End Sub
 Private Sub Button2_Click()
+	Activity.RemoveViewAt(Activity.GetView("my_layout"))
 	Root.LoadLayout("MapFragment1")
 End Sub
 Private Sub MapFragment1_Click
