@@ -14,6 +14,8 @@ Library1=b4xpages
 Library10=okhttputils2
 Library11=osmdroid_3_0_8
 Library12=runtimepermissions
+Library13=serial
+Library14=xcustomlistview
 Library2=b4xpreferencesdialog
 Library3=btautopair
 Library4=core
@@ -26,7 +28,7 @@ ManifestCode='This code will be applied to the manifest file during compilation.
 Module1=|relative|..\B4XMainPage
 Module2=Starter
 NumberOfFiles=5
-NumberOfLibraries=12
+NumberOfLibraries=14
 NumberOfModules=2
 Version=12.2
 @EndOfDesignText@
