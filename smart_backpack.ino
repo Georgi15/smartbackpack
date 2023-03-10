@@ -2,6 +2,7 @@
 #include <TinyGPS++.h>
 #include  <SoftwareSerial.h>
 #include "BluetoothSerial.h"
+#include <LiquidCrystal_I2C.h>
 
 #if !defined(CONFIG_BT_ENABLED) || !defined(CONFIG_BLUEDROID_ENABLED)
 #error Bluetooth is not enabled! Please run `make menuconfig` to and enable it
@@ -20,13 +21,14 @@ String incoming_data;
 #define RXPin 34
 #define SERVICE_UUID        "6E400001-B5A3-F393-E0A9-E0A9-E50E24DCCA9E"
 #define CHARACTERISTIC_UUID "6E400003-B5A3-F393-E0A9-E0A9-E50E24DCCA9E"
+#define pin_code 69420
 
 static const uint32_t GPSBaud = 9600;
 TinyGPSPlus gps;
 
 SoftwareSerial ss(RXPin, TXPin);
 
-
+LiquidCeystal_I2C lcd(0x27, 16, 2)
 DHT dht(dht_pin, dhttype);
 
 void setup() {
@@ -34,6 +36,8 @@ void setup() {
   ss.begin(GPSBaud);
   SerialBT.begin("ESP32");
   Serial.println("The device started, now you can pair it with bluetooth!");
+  lcd.init();
+  lcd.backlight();
   dht.begin();
 }
 
@@ -73,7 +77,7 @@ void loop() {
       float gps_course = gps.course.deg();
 
         
-      float all_data[13] = {air_h, air_t, gps_lat, gps_long, gps_altitude, gps_course, gps_speed, gps_day, gps_month, gps_year, gps_hour, gps_minute, gps_second};
+      float all_data[13] = {air_h, air_t, gps_lat, gps_long, gps_altitude, gps_speed, gps_day, gps_month, gps_year, gps_hour, gps_minute, gps_second};
       for(int i=0;i<13;i++)
       {
         data_string += String(all_data[i]);
@@ -100,7 +104,7 @@ void loop() {
       Serial.println("Sent value: " + String(data_string));
       delay(500);
   }
-
+  
   if(SerialBT.available())
   {
     char recieved_data = SerialBT.read();
@@ -114,6 +118,11 @@ void loop() {
     }
     Serial.write(recieved_data);
   }
-      
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print("Enter pincode: ");
+  
 
+
+  
 }
