@@ -3,16 +3,17 @@
 #include <LiquidCrystal_I2C.h>
 #include <Keypad.h>
 
-const int rows = 4;
-const int cols = 4;
-char keys[rows][cols] = {
+
+char keys[4][4] = {
   {'1', '2', '3', 'U'},
   {'4', '5', '6', 'D'},
   {'7', '8', '9', 'C'},
   {'L', '0', 'R', 'E'}
 };
-int row_pins[rows] = {16, 4, 2, 15};
-int col_pins[cols] = {23, 19, 18, 5};
+const int rows = 4;
+const int cols = 4;
+byte row_pins[] = {16, 4, 2, 15};
+byte col_pins[] = {23, 19, 18, 5};
 
 Keypad my_keypad = Keypad(makeKeymap(keys), row_pins, col_pins, rows, cols);
 
@@ -66,22 +67,27 @@ void loop() {
   lcd.clear();
   lcd.setCursor(0, 0);
   lcd.print("Enter pincode: ");
-  lcd.setCursor(0, 2);
+  lcd.setCursor(0, 1);
   while(unlocked == false)
   {
-    char key = my_keypad.getKey();
-    entered_pin += key;
-    if(key == '\n' && entered_pin == pin)
+    char key_ = my_keypad.getKey();
+    entered_pin += key_;
+    if(key_ == '\n' && entered_pin == pin)
     {
       unlocked = true;
       break;
     }
-    else if(key == '\n' && entered_pin!=pin)
+    else
+    if(key_ == '\n' && entered_pin!=pin)
     {
+      lcd.setCursor(0, 0);
       lcd.print("Enter pincode: ");
-      lcd.setCursor(0, 2);
+      lcd.setCursor(0, 1);
+      entered_pin = "";
+      continue;
     }
     lcd.print(entered_pin);
+    Serial.println(entered_pin);
   }
   lcd.clear();
   lcd.setCursor(0, 0);
@@ -89,11 +95,13 @@ void loop() {
   {
     lcd.setCursor(0, 0);
     lcd.print("air_hum is " + String(air_h));
-    lcd.setCursor(0, 2);
+    lcd.setCursor(0, 1);
     lcd.print("air_temp is " + String(air_t));
+    Serial.println(air_h);
+    Serial.println(air_t);
   }
   
 
-
+  
   
 }
